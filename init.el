@@ -29,16 +29,22 @@ values."
      ;; git
      markdown
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
      ; spell-checking
      syntax-checking
      ;; version-control
+     search-engine
      python
      (colors :variables
         colors-enable-nyan-cat-progress-bar t)
-     )
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+    (shell :variables
+            shell-default-position 'full
+            shell-default-shell 'ansi-term
+            shell-default-term-shell "/bin/zsh")
+    wakatime
+   )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -241,6 +247,9 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+
+  ;; ss proxy. But it will cause anacond-mode failed.
+  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   )
 
 (defun dotspacemacs/user-config ()
@@ -248,6 +257,8 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (global-linum-mode t)
+  (setq-default powerline-default-separator 'arrow)
+  (setq-default evil-escape-key-sequence "kj")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
