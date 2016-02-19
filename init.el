@@ -44,6 +44,8 @@ values."
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
     wakatime
+    (chinese :variables
+             chinese-enable-fcitx t)
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -104,12 +106,12 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(monokai
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
                          leuven
-                         monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -256,7 +258,9 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (spacemacs//set-monospaced-font "Source Code Pro" "Source Han San CN" 14 16)
   (global-linum-mode t)
+  (global-company-mode t)
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-key-sequence "kj")
   )
