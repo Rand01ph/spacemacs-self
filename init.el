@@ -259,6 +259,7 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (spacemacs//set-monospaced-font "Source Code Pro" "Source Han San CN" 14 16)
+  (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
   (global-linum-mode t)
   (global-company-mode t)
   (setq-default powerline-default-separator 'arrow)
