@@ -46,6 +46,7 @@ values."
     wakatime
     (chinese :variables
              chinese-enable-fcitx t)
+    osx
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -258,7 +259,10 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (spacemacs//set-monospaced-font "Source Code Pro" "Source Han San CN" 14 16)
+    ;;解决org表格里面中英文对齐的问题
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (spacemacs/system-is-mac)
+    (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
   (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
   (global-linum-mode t)
   (global-company-mode t)
