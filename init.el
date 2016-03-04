@@ -43,7 +43,11 @@ values."
             shell-default-position 'full
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
-    wakatime
+    (wakatime :variables
+            wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
+            ;; use the actual wakatime path
+            wakatime-cli-path "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/wakatime"
+            wakatime-python-bin "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
     (chinese :variables
              chinese-enable-fcitx t)
     osx
@@ -252,7 +256,7 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
   ;; ss proxy. But it will cause anacond-mode failed.
-  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
   )
 
 (defun dotspacemacs/user-config ()
