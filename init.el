@@ -261,6 +261,7 @@ in `dotspacemacs/user-config'."
 
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  (setq python-fill-column 99)
   )
 
 (defun dotspacemacs/user-config ()
@@ -274,8 +275,17 @@ layers configuration. You are free to put any user code."
   (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
   (global-linum-mode t)
   (global-company-mode t)
+  ;; 默认 80 列自动换行, 需要 M-x auto-fill-mode 模式下
+  (setq default-fill-column 80)
+  ;; org 自动换行
+  (add-hook 'org-mode-hook
+    (lambda () (setq truncate-lines nil)))
   (setq-default powerline-default-separator 'arrow)
-  (setq-default evil-escape-key-sequence "kj")
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir t))))) (setq-default evil-escape-key-sequence "kj")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
