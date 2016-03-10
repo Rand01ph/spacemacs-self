@@ -31,9 +31,12 @@ values."
      org
      ; spell-checking
      syntax-checking
-     ;; version-control
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl)
      search-engine
      python
+     html
+     yaml
      (colors :variables
         colors-enable-nyan-cat-progress-bar t)
      ;; (shell :variables
