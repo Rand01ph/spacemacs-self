@@ -281,11 +281,7 @@ layers configuration. You are free to put any user code."
   (add-hook 'org-mode-hook
     (lambda () (setq truncate-lines nil)))
   (setq-default powerline-default-separator 'arrow)
-  "Create parent directory if not exists while visiting file."
-  (unless (file-exists-p filename)
-    (let ((dir (file-name-directory filename)))
-      (unless (file-exists-p dir)
-        (make-directory dir t))))) (setq-default evil-escape-key-sequence "kj")
+  (setq-default evil-escape-key-sequence "kj")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
