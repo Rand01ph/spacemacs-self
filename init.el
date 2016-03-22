@@ -50,9 +50,9 @@ values."
     (wakatime :variables
             wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
             ;; use the actual wakatime path
-            wakatime-cli-path (if (string= system-type "darwin") "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/wakatime"
+            wakatime-cli-path (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/wakatime"
                                  "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/wakatime")
-            wakatime-python-bin (if (string= system-type "darwin") "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
+            wakatime-python-bin (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
                                    "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
     )
     (chinese :variables
