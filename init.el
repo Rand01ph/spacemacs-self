@@ -23,21 +23,26 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-tab-key-behavior 'cycle
+                      :disabled-for org markdown)
      better-defaults
      emacs-lisp
      ;; git
      markdown
      org
-     ; spell-checking
-     syntax-checking
+     (syntax-checking :variables syntax-checking-enable-by-default nil)
+     (spell-checking :variables spell-checking-enable-by-default nil)
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
-     search-engine
+     django
      python
      lua
      html
      yaml
+     (spacemacs-layouts :variables layouts-enable-autosave t
+                        layouts-autosave-delay 300)
      (colors :variables
         colors-enable-nyan-cat-progress-bar t)
      ;; (shell :variables
@@ -47,19 +52,16 @@ values."
             shell-default-position 'full
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
-    (wakatime :variables
-            wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
-            ;; use the actual wakatime path
-            wakatime-cli-path (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/wakatime"
-                                 "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/wakatime")
-            wakatime-python-bin (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
-                                   "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
-    )
+    ;; (wakatime :variables
+    ;;         wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
+    ;;         ;; use the actual wakatime path
+    ;;         wakatime-cli-path (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/wakatime"
+    ;;                              "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/wakatime")
+    ;;         wakatime-python-bin (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
+    ;;                                "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
+    ;; )
     (chinese :variables
              chinese-enable-fcitx t)
-    osx
-    eyebrowse
-    erc
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -88,7 +90,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -255,7 +257,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
    ))
 
 (defun dotspacemacs/user-init ()
@@ -263,9 +265,19 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+  (setq-default
+   ;; Flycheck
+   flycheck-check-syntax-automatically '(save mode-enabled))
+
+  (setq configuration-layer--elpa-archives
+        '(("melpai-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("popkit" . "http://elpa.popkit.org/packages/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
+
   (setq python-fill-column 99)
   )
 
@@ -273,21 +285,42 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; Settings
+  (setq-default
+   teb-width 4)
+
     ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (spacemacs/system-is-mac)
     (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-  (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
+
   (global-linum-mode t)
   (global-company-mode t)
+
   ;; 默认 80 列自动换行, 需要 M-x auto-fill-mode 模式下
   (setq default-fill-column 80)
+
   ;; org 自动换行
   (add-hook 'org-mode-hook
     (lambda () (setq truncate-lines nil)))
+
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-key-sequence "kj")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/Projects/My_org/Python2.7 Note.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
