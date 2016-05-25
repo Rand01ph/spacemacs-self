@@ -23,35 +23,38 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (auto-completion :variables
-                      auto-completion-enable-sort-by-usage t
-                      auto-completion-tab-key-behavior 'cycle
-                      :disabled-for org markdown)
+     (auto-completion
+       :variables
+       auto-completion-enable-sort-by-usage t
+       auto-completion-tab-key-behavior 'cycle
+       :disabled-for org markdown)
      better-defaults
      emacs-lisp
      ;; git
      markdown
      org
-     (syntax-checking :variables syntax-checking-enable-by-default nil)
-     (spell-checking :variables spell-checking-enable-by-default nil)
-     (version-control :variables
-                      version-control-diff-tool 'diff-hl)
+     (syntax-checking
+       :variables
+       syntax-checking-enable-by-default nil
+       syntax-checking-enable-tooltips nil)
+     (version-control
+       :variables
+       version-control-diff-tool 'diff-hl)
      django
      python
      lua
      html
      yaml
-     (spacemacs-layouts :variables layouts-enable-autosave t
-                        layouts-autosave-delay 300)
+     (spacemacs-layouts
+       :variables
+       layouts-enable-autosave t
+       layouts-autosave-delay 300)
      (colors :variables
         colors-enable-nyan-cat-progress-bar t)
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-    (shell :variables
-            shell-default-position 'full
-            shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh")
+     (shell :variables
+        shell-default-position 'full
+        shell-default-shell 'ansi-term
+        shell-default-term-shell "/bin/zsh")
     ;; (wakatime :variables
     ;;         wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
     ;;         ;; use the actual wakatime path
@@ -60,8 +63,9 @@ values."
     ;;         wakatime-python-bin (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
     ;;                                "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
     ;; )
-    (chinese :variables
-             chinese-enable-fcitx t)
+    (chinese
+      :variables
+      chinese-enable-fcitx t)
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -270,10 +274,9 @@ in `dotspacemacs/user-config'."
    flycheck-check-syntax-automatically '(save mode-enabled))
 
   (setq configuration-layer--elpa-archives
-        '(("melpai-cn" . "http://elpa.zilongshanren.com/melpa/")
-          ("popkit" . "http://elpa.popkit.org/packages/")
-          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+        '(("melpa" . "http://elpa.zilongshanren.com/melpa/")
+          ("org"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu"   . "http://elpa.zilongshanren.com/gnu/")))
 
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
