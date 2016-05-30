@@ -281,6 +281,7 @@ in `dotspacemacs/user-config'."
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
+  (require 'python)
   (setq python-fill-column 99)
   )
 
@@ -288,6 +289,7 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   ;; Settings
   (setq-default
@@ -310,6 +312,8 @@ layers configuration. You are free to put any user code."
 
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-key-sequence "kj")
+
+  (spacemacs/toggle-transparency)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
