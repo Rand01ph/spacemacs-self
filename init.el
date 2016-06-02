@@ -55,14 +55,6 @@ values."
         shell-default-position 'full
         shell-default-shell 'ansi-term
         shell-default-term-shell "/bin/zsh")
-    ;; (wakatime :variables
-    ;;         wakatime-api-key  "96f909e0-00a6-4e3c-b3fe-d7010bf8b5de"
-    ;;         ;; use the actual wakatime path
-    ;;         wakatime-cli-path (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/wakatime"
-    ;;                              "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/wakatime")
-    ;;         wakatime-python-bin (if (spacemacs/system-is-mac) "/usr/local/var/pyenv/versions/miniconda-3.18.3/bin/python"
-    ;;                                "/home/tan/.pyenv/versions/miniconda-3.18.3/bin/python")
-    ;; )
     (chinese
       :variables
       chinese-enable-fcitx t)
@@ -71,7 +63,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(dracula-theme
+   )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -126,7 +120,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
+   dotspacemacs-themes '(dracula
+                         monokai
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
@@ -289,7 +284,6 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   ;; Settings
   (setq-default
@@ -313,7 +307,6 @@ layers configuration. You are free to put any user code."
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-key-sequence "kj")
 
-  (spacemacs/toggle-transparency)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
