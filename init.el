@@ -18,6 +18,9 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     sql
+     javascript
+     nginx
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -35,8 +38,8 @@ values."
      org
      (syntax-checking
        :variables
-       syntax-checking-enable-by-default nil
-       syntax-checking-enable-tooltips nil)
+       syntax-checking-enable-by-default t
+       syntax-checking-enable-tooltips t)
      (version-control
        :variables
        version-control-diff-tool 'diff-hl)
@@ -45,12 +48,14 @@ values."
      lua
      html
      yaml
+     plantuml
      (spacemacs-layouts
        :variables
        layouts-enable-autosave t
        layouts-autosave-delay 300)
      (colors :variables
-        colors-enable-nyan-cat-progress-bar t)
+             colors-enable-nyan-cat-progress-bar t
+             colors-enable-rainbow-identifiers)
      (shell :variables
         shell-default-position 'full
         shell-default-shell 'ansi-term
@@ -120,12 +125,12 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(dracula
-                         monokai
+   dotspacemacs-themes '(solarized-dark
+                         solarized-light
                          spacemacs-dark
                          spacemacs-light
-                         solarized-light
-                         solarized-dark
+                         monokai
+                         dracula
                          leuven
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -269,14 +274,13 @@ in `dotspacemacs/user-config'."
    flycheck-check-syntax-automatically '(save mode-enabled))
 
   (setq configuration-layer--elpa-archives
-        '(("melpa" . "http://elpa.zilongshanren.com/melpa/")
-          ("org"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu"   . "http://elpa.zilongshanren.com/gnu/")))
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
-  (require 'python)
   (setq python-fill-column 99)
   )
 
@@ -316,7 +320,81 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Projects/My_org/Python2.7 Note.org"))))
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["black" "red3" "ForestGreen" "yellow3" "blue" "magenta3" "DeepSkyBlue" "gray50"])
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#002b36" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors
+   (quote
+    (("#073642" . 0)
+     ("#546E00" . 20)
+     ("#00736F" . 30)
+     ("#00629D" . 50)
+     ("#7B6000" . 60)
+     ("#8B2C02" . 70)
+     ("#93115C" . 85)
+     ("#073642" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+ '(hl-fg-colors
+   (quote
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(hl-sexp-background-color "#efebe9")
+ '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+   (quote
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+ '(org-agenda-files (quote ("~/todo.org")))
+ '(package-selected-packages
+   (quote
+    (plantuml-mode hide-comnt sql-indent web-beautify livid-mode skewer-mode simple-httpd json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode nginx-mode pug-mode yapfify uuidgen request py-isort org-projectile org-download mwim live-py-mode link-hint eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z dumb-jump column-enforce-mode color-identifiers-mode git-commit alert json-mode with-editor f auto-complete async s projectile chinese-pyim-basedict smartparens highlight hydra zenburn-theme solarized-theme yaml-mode web-mode volatile-highlights spaceline powerline smooth-scrolling shell-pop restart-emacs pyvenv persp-mode org-plus-contrib leuven-theme indent-guide hl-todo helm-projectile helm-descbinds helm-ag fcitx evil-escape chinese-pyim aggressive-indent ace-pinyin ace-link avy anaconda-mode anzu iedit flycheck git-gutter yasnippet company helm popup helm-core markdown-mode dash package-build which-key bind-map evil dracula-theme xterm-color ws-butler window-numbering vi-tilde-fringe use-package undo-tree toc-org tagedit spacemacs-theme slim-mode scss-mode sass-mode rainbow-mode rainbow-identifiers rainbow-delimiters quelpa python pytest pyenv-mode py-yapf popwin pony-mode pip-requirements pinyinlib pcre2el paradox pangu-spacing page-break-lines org-repo-todo org-present org-pomodoro org-bullets open-junk-file neotree multi-term move-text monokai-theme mmm-mode markdown-toc macrostep lua-mode lorem-ipsum linum-relative less-css-mode jade-mode info+ ido-vertical-mode hy-mode hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-mode-manager helm-make helm-flx helm-css-scss helm-company helm-c-yasnippet goto-chg google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav diff-hl define-word cython-mode company-web company-statistics company-quickhelp company-anaconda clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-compile adaptive-wrap ace-window ace-jump-mode ace-jump-helm-line ac-ispell)))
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#dc322f")
+     (40 . "#c85d17")
+     (60 . "#be730b")
+     (80 . "#b58900")
+     (100 . "#a58e00")
+     (120 . "#9d9100")
+     (140 . "#959300")
+     (160 . "#8d9600")
+     (180 . "#859900")
+     (200 . "#669b32")
+     (220 . "#579d4c")
+     (240 . "#489e65")
+     (260 . "#399f7e")
+     (280 . "#2aa198")
+     (300 . "#2898af")
+     (320 . "#2793ba")
+     (340 . "#268fc6")
+     (360 . "#268bd2"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+ '(xterm-color-names
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
