@@ -308,6 +308,7 @@ layers configuration. You are free to put any user code."
   (add-hook 'org-mode-hook
     (lambda () (setq truncate-lines nil)))
 
+  ;; plantuml
   (add-to-list
    'org-src-lang-modes '("plantuml" . plantuml))
 
