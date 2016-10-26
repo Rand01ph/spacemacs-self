@@ -55,7 +55,7 @@ values."
        layouts-autosave-delay 300)
      (colors :variables
              colors-enable-nyan-cat-progress-bar t
-             colors-enable-rainbow-identifiers)
+             colors-colorize-identifiers 'variable)
      (shell :variables
         shell-default-position 'full
         shell-default-shell 'ansi-term
@@ -307,6 +307,12 @@ layers configuration. You are free to put any user code."
   ;; org 自动换行
   (add-hook 'org-mode-hook
     (lambda () (setq truncate-lines nil)))
+
+  (add-to-list
+   'org-src-lang-modes '("plantuml" . plantuml))
+
+  (setq org-plantuml-jar-path
+        (expand-file-name "~/.spacemacs.d/plantuml.jar"))
 
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-key-sequence "kj")
