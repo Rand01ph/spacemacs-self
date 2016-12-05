@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     windows-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -42,6 +43,7 @@ values."
        auto-completion-tab-key-behavior 'cycle
        :disabled-for org markdown)
      better-defaults
+     themes-megapack
      emacs-lisp
      ;; git
      markdown
@@ -53,9 +55,8 @@ values."
      (version-control
        :variables
        version-control-diff-tool 'diff-hl)
-     django
-     python
      lua
+     python
      html
      yaml
      plantuml
@@ -153,7 +154,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
+   dotspacemacs-themes '(moe-dark
+                         moe-light
+                         solarized-dark
                          solarized-light
                          spacemacs-dark
                          spacemacs-light
@@ -329,10 +332,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
    flycheck-check-syntax-automatically '(save mode-enabled))
 
   (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
-          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+        '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+          ("org-cn"   . "http://elpa.emacs-china.org/org/")
+          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   ;; ss proxy. But it will cause anacond-mode failed.
   ;;(setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
@@ -348,16 +353,16 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; Settings
-  (setq-default
-   teb-width 4)
+  (setq-default teb-width 4)
+  (setq-default powerline-default-separator 'arrow)
+  (setq-default evil-escape-key-sequence "kj")
+  (global-linum-mode t)
+  (global-company-mode t)
 
     ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (spacemacs/system-is-mac)
     (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
-
-  (global-linum-mode t)
-  (global-company-mode t)
 
   ;; 默认 80 列自动换行, 需要 M-x auto-fill-mode 模式下
   (setq default-fill-column 80)
@@ -372,9 +377,6 @@ you should place your code here."
 
   (setq org-plantuml-jar-path
         (expand-file-name "~/.spacemacs.d/plantuml.jar"))
-
-  (setq-default powerline-default-separator 'arrow)
-  (setq-default evil-escape-key-sequence "kj")
 
   )
 
