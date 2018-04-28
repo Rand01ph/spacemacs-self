@@ -437,6 +437,81 @@ you should place your code here."
                     (select-window first-win)
                     (if this-win-2nd (other-window 1))))))
 
+
+    ;;----------------------------------------------------------------------------------------------------
+    ;; Org blog settings
+    ;;----------------------------------------------------------------------------------------------------
+    (require 'ox-publish)
+    (require 'ox-html)
+
+
+    (defvar tyw-website-html-head
+      "<link rel='stylesheet' href='css/worg2.css' type='text/css'/>")
+
+    (defvar tyw-website-html-blog-head
+      "<link rel='stylesheet' href='../css/worg2.css' type='text/css'/>")
+
+    (defvar tyw-website-html-preamble
+      "<div class='nav'>
+<ul>
+<li><a href='/'>Home</a></li>
+<li><a href='/blog/index.html'>Blog</a></li>
+<li><a href='http://github.com/Rand01ph'>GitHub</a></li>
+<li><a href='http://twitter.com/Rand01ph'>Twitter</a></li>
+</ul>
+</div>")
+
+    (defvar tyw-website-html-postamble
+      "<div class='footer'>
+Copyright 2018 Rand01ph (%v HTML).<br>
+Last updated %C. <br>
+Built with %c.
+</div>")
+
+
+    (setq org-publish-project-alist
+          `(("org"
+             :base-directory "~/Projects/tyw_website/"
+             :base-extension "org"
+             :publishing-directory "~/Projects/Rand01ph.github.io/"
+             :publishing-function org-html-publish-to-html
+             :section-numbers nil
+             :with-toc nil
+             :html-head ,tyw-website-html-head
+             :html-preamble ,tyw-website-html-preamble
+             :html-postamble ,tyw-website-html-postamble)
+
+            ("blog"
+             :base-directory "~/Projects/tyw_website/blog"
+             :base-extension "org"
+             :publishing-directory "~/Projects/Rand01ph.github.io/blog/"
+             :publishing-function org-html-publish-to-html
+             :section-numbers nil
+             :with-toc nil
+             :html-head ,tyw-website-html-blog-head
+             :html-preamble ,tyw-website-html-preamble
+             :html-postamble ,tyw-website-html-postamble)
+
+            ("images"
+             :base-directory "~/Projects/tyw_website/images/"
+             :base-extension "jpg\\|gif\\|png"
+             :publishing-directory "~/Projects/Rand01ph.github.io/images/"
+             :publishing-function org-publish-attachment)
+
+            ("js"
+             :base-directory "~/Projects/tyw_website/js/"
+             :base-extension "js"
+             :publishing-directory "~/Projects/Rand01ph.github.io/js/"
+             :publishing-function org-publish-attachment)
+
+            ("css"
+             :base-directory "~/Projects/tyw_website/css/"
+             :base-extension "css"
+             :publishing-directory "~/Projects/Rand01ph.github.io/css/"
+             :publishing-function org-publish-attachment)
+
+            ("website" :components ("org" "blog" "images" "js" "css"))))
+
   )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
