@@ -60,6 +60,7 @@ values."
      lua
      html
      yaml
+     rust
      plantuml
      (spacemacs-layouts
        :variables
